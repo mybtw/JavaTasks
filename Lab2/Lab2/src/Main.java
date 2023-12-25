@@ -9,6 +9,7 @@ public class Main {
         phoneBook.add("Petrov", "+987654321");
         phoneBook.add("Ilia", "+111222333");
         phoneBook.add("Ilia", "+62316541654161954");
+        phoneBook.add("Ilia", "+62316541654161954");
 
         var iliaNumbers = phoneBook.get("Ilia");
         System.out.println("Ilia's phone numbers: " + iliaNumbers);
@@ -24,18 +25,11 @@ public class Main {
         var strArr = new String[] {"Ilia", "Ilia", "Vlad", "Maria", "Maria", "Maria", "Egor", "Max", "Vitaliy", "Elena", "Oleg", "Andrey", "Pavel", "Nika"};
         var map = new HashMap<String, Integer>();
         for (var str : strArr) {
-            if (!map.containsKey(str)) {
-                map.put(str, 0);
-            }
-            map.put(str, map.get(str) + 1);
+            map.put(str, map.getOrDefault(str, 0) + 1);
         }
         System.out.println("Уникальные слова: ");
-        for (var key : map.keySet()) {
-            System.out.print(key + " ");
-        }
+        map.keySet().forEach(key -> System.out.println("Word : " + key));
         System.out.println();
-        for (var pair : map.entrySet()) {
-            System.out.println("Word : " + pair.getKey() +", counter: " + pair.getValue());
-        }
+        map.forEach((key, value) -> System.out.println("Word : " + key + ", counter: " + value));
     }
 }
