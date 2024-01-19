@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40066cf9-bc74-470f-860c-b0490abfeadb" name="Changes" comment="" />
+    <list default="true" id="40066cf9-bc74-470f-860c-b0490abfeadb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Lab7/EncryptedClassLoader/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/EncryptedClassLoader/src/main/java/org/example/ClassEncryptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/EncryptedClassLoader/src/main/java/org/example/EncryptedClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/Plugin/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/Plugin/src/main/java/org/example/Plugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/Plugin/src/main/java/org/example/TestEncryption.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginFIrst/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginFIrst/src/main/java/org/example/HelloPlugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginManager/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginManager/src/main/java/org/example/PluginManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginManager/src/test/java/org/example/PluginManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginSecond/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/PluginSecond/src/main/java/org/example/HelloPlugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/plugins/first.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab7/plugins/second.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab5/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Lab5/.idea/misc.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2ZoHwG467OOToYyVJlv3wY4lXq9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,6 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/astaf/IdeaProjects/JavaTasks",
     "vue.rearranger.settings.migration": "true"
   }
@@ -33,6 +54,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703081748763</updated>
       <workItem from="1703081749855" duration="83000" />
+      <workItem from="1705664484954" duration="15000" />
     </task>
     <servers />
   </component>
