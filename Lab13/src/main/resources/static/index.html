@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chunked JSON Viewer</title>
+</head>
+<body>
+<button id="fetchData">Fetch Data</button>
+<button id="stopFetch">Stop Fetching</button>
+<div id="dataPre"></div>
+
+<script>
+    let controller = new AbortController();
+    document.getElementById('fetchData').addEventListener('click', () => {
+        let dataPre = document.getElementById('dataPre');
+        dataPre.textContent = ''; // Очистка данных перед началом нового запроса
+        let jsonString = '['; // Начинаем с массива
+        let isFirstChunk = true; // Флаг для первого чанка
+
+        controller = new AbortController();
+        const signal = controller.signal;
+
+        fetch('/chunked-json', { signal })
+            .then(response => {
+                const reader = response.body.getReader();
+                return new ReadableStream({
+                    start(controller) {
+                        function push() {
+                            reader.read().then(({ done, value }) => {
+                                if (done) {
+                                    jsonString += ']'; // Закрываем массив
+                                    controller.close();
+                                    try {
+                                        const jsonData = JSON.parse(jsonString); // Попытка парсинга собранной строки как JSON массив
+                                        dataPre.textContent = JSON.stringify(jsonData, null, 2); // Красивый вывод JSON
+                                    } catch (error) {
+                                        console.error('Error parsing JSON:', error);
+                                        dataPre.textContent = 'Error parsing JSON: ' + error;
+                                    }
+                                    return;
+                                }
+                                if (!isFirstChunk) {
+                                    jsonString += ','; // Добавляем запятую перед каждым чанком, кроме первого
+                                } else {
+                                    isFirstChunk = false; // Сбрасываем флаг для первого чанка
+                                }
+                                jsonString += new TextDecoder().decode(value); // Добавление чанка к строке
+                                push();
+                            });
+                        }
+                        push();
+                    }
+                });
+            })
+            .catch(err => console.error(err));
+    });
+
+    document.getElementById('stopFetch').addEventListener('click', () => {
+        controller.abort();
+        controller = new AbortController(); // Создаем новый контроллер для следующего запроса
+    });
+</script>
+</body>
+</html>
