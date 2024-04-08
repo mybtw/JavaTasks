@@ -31,7 +31,7 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		recipeService.addRecipes();
+		//recipeService.addRecipes();
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean running = true;
 			while (running) {
@@ -67,7 +67,6 @@ public class DemoApplication implements CommandLineRunner {
 	}
 
 
-	@Transactional(readOnly = true)
 	public void findRecipe(Scanner scanner) {
 		System.out.println("Искать по точному имени? (да/нет):");
 		String searchType = scanner.nextLine().trim().toLowerCase();

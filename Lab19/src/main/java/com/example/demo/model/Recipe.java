@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -15,6 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@NamedEntityGraph(
+        name = Recipe.RECIPE_WITH_INGREDIENTS,
+        attributeNodes = {@NamedAttributeNode("ingredients")}
+)
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,9 @@ public class Recipe {
 
     private String name;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> ingredients;
+
+    public static final String RECIPE_WITH_INGREDIENTS = "withIngredients";
 
 }
