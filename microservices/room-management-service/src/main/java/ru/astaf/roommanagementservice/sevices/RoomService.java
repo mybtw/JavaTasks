@@ -1,17 +1,21 @@
 package ru.astaf.roommanagementservice.sevices;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import ru.astaf.roommanagementservice.dto.OfficeAddress;
 import ru.astaf.roommanagementservice.dto.RoomRequest;
 import ru.astaf.roommanagementservice.dto.RoomResponse;
 import ru.astaf.roommanagementservice.dto.RoomSearchCriteria;
 import ru.astaf.roommanagementservice.models.Room;
 import ru.astaf.roommanagementservice.repositories.RoomRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,22 +77,39 @@ public class RoomService {
         if (criteria.getAddress() != null) {
             query.addCriteria(Criteria.where("address").regex(criteria.getAddress(), "i"));
         }
-        if (criteria.getMinCapacity() != null && criteria.getMaxCapacity() != null) {
-            query.addCriteria(Criteria.where("capacity").gte(criteria.getMinCapacity()).lte(criteria.getMaxCapacity()));
-        } else if (criteria.getMinCapacity() != null) {
-            query.addCriteria(Criteria.where("capacity").gte(criteria.getMinCapacity()));
-        } else if (criteria.getMaxCapacity() != null) {
-            query.addCriteria(Criteria.where("capacity").lte(criteria.getMaxCapacity()));
+        if (criteria.getCapacity() != null) {
+            query.addCriteria(Criteria.where("capacity").gte(criteria.getCapacity()));
         }
-        if (criteria.getHasMonitorOrTV() != null) {
+        if (criteria.getHasMonitorOrTV() != null && criteria.getHasMonitorOrTV()) {
             query.addCriteria(Criteria.where("hasMonitorOrTV").is(criteria.getHasMonitorOrTV()));
         }
-        if (criteria.getHasVideoConferencing() != null) {
+        if (criteria.getFloor() != null) {
+            query.addCriteria(Criteria.where("floor").is(criteria.getFloor()));
+        }
+        if (criteria.getHasVideoConferencing() != null && criteria.getHasVideoConferencing()) {
             query.addCriteria(Criteria.where("hasVideoConferencing").is(criteria.getHasVideoConferencing()));
         }
 
         List<Room> rooms = roomRepository.getRoomsBySearchCriteria(query);
 
         return rooms.stream().map(room -> modelMapper.map(room, RoomResponse.class)).collect(Collectors.toList());
+    }
+
+    public List<OfficeAddress> getAddresses() {
+        List<String> res = roomRepository.findUniqueAddresses();
+        ObjectMapper mapper = new ObjectMapper();
+
+        return res.stream().map(json -> {
+            try {
+                JsonNode node = mapper.readTree(json);
+                return new OfficeAddress(node.get("_id").asText());
+            } catch (IOException e) {
+                throw new RuntimeException("Error parsing address JSON", e);
+            }
+        }).toList();
+    }
+
+    public List<RoomResponse> findAllById(List<String> idList) {
+        return roomRepository.findAllById(idList).stream().map(room -> modelMapper.map(room, RoomResponse.class)).collect(Collectors.toList());
     }
 }

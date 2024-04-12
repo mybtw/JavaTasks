@@ -25,6 +25,11 @@ public class Reservation {
         @Column(name = "room_id")
         private String roomId;
 
+        @NotEmpty
+        @Column(name = "preferred_username")
+        private String preferredUsername;
+
+
         @Type(PostgreSQLRangeType.class)
         @Column(
                 name = "booking_range",
@@ -32,8 +37,9 @@ public class Reservation {
         )
         private Range<ZonedDateTime> bookingRange;
 
-        public Reservation(String roomId, Range<ZonedDateTime> bookingRange) {
+        public Reservation(String roomId, String preferredUsername, Range<ZonedDateTime> bookingRange) {
                 this.roomId = roomId;
+                this.preferredUsername = preferredUsername;
                 this.bookingRange = bookingRange;
         }
 }

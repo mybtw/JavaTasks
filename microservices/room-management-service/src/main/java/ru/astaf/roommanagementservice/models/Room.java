@@ -15,6 +15,7 @@ public class Room {
     private String id;
     private String name;
     private String address;
+    private int floor;
     private int capacity;
     private boolean hasMonitorOrTV;
     private boolean hasVideoConferencing;

@@ -11,6 +11,7 @@ public class RoomRequest {
     private String name;
     private String address;
     private int capacity;
+    private int floor;
     private boolean hasMonitorOrTV;
     private boolean hasVideoConferencing;
 }
